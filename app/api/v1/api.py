@@ -1,0 +1,50 @@
+from fastapi import APIRouter
+from app.api.v1.endpoints import auth, vendor_catalog, vendors, subscriptions, catalog, ai_verification, devices, wallet, orders, media, admin_auth, admin_vendors, employees, admin, marketing, vendor_management, vendor_dashboard, location, careers, admin_hr, developer, engagement, images, accounting, tracking, customer_billing, shop, search, chat, comms
+from app.api.v1.endpoints import (
+    auth, vendor_catalog, vendors, subscriptions, catalog, ai_verification,
+    devices, wallet, orders, media, admin_auth, admin_vendors, employees,
+    admin, marketing, vendor_management, vendor_dashboard, location, careers,
+    admin_hr, developer, engagement, images, accounting
+)
+from freelance_api import freelance_router
+from app.categories.router import router as categories_router
+
+api_router = APIRouter()
+api_router.include_router(accounting.router, prefix="/accounting", tags=["Accounting & Finance"])
+api_router.include_router(developer.router, prefix="/developer", tags=["Developer Portal"])
+
+api_router.include_router(auth.router, prefix="/auth", tags=["Vendor Auth"])
+api_router.include_router(admin_auth.router, prefix="/admin/auth", tags=["Admin Auth"])
+api_router.include_router(admin_vendors.router, prefix="/admin/vendors", tags=["Admin Vendors"])
+api_router.include_router(admin.router, prefix="/admin", tags=["Admin"])
+api_router.include_router(employees.router, prefix="/employees", tags=["Employees"])
+api_router.include_router(vendor_catalog.router, prefix="/vendor/catalog", tags=["vendor-catalog"])
+api_router.include_router(catalog.router, prefix="/catalog", tags=["catalog"])
+api_router.include_router(vendors.router, prefix="/vendors", tags=["vendors"])
+api_router.include_router(vendor_management.router, prefix="/vendor/management", tags=["Vendor Management"])
+api_router.include_router(vendor_dashboard.router, prefix="/vendor/dashboard", tags=["Vendor Dashboard"])
+api_router.include_router(subscriptions.router, prefix="/subscriptions", tags=["subscriptions"])
+api_router.include_router(wallet.router, prefix="/wallet", tags=["wallet"])
+api_router.include_router(ai_verification.router, prefix="/ai", tags=["ai-verification"])
+api_router.include_router(devices.router, prefix="/devices", tags=["devices"])
+api_router.include_router(orders.router, prefix="/orders", tags=["orders"])
+api_router.include_router(tracking.router, prefix="/tracking", tags=["tracking"])
+api_router.include_router(customer_billing.router, tags=["customer-billing"])
+api_router.include_router(shop.router, tags=["shop"])
+api_router.include_router(search.router, prefix="/search", tags=["search"])
+api_router.include_router(comms.router, tags=["notifications-calls"])
+api_router.include_router(chat.router, prefix="/chat", tags=["chat"])
+api_router.include_router(chat.vendor_router, prefix="/vendor/chat", tags=["vendor-chat"])
+api_router.include_router(media.router, prefix="/media", tags=["media"])
+api_router.include_router(images.router, prefix="/images", tags=["images"])
+api_router.include_router(marketing.router, prefix="/marketing", tags=["Marketing"])
+api_router.include_router(location.router, prefix="/location", tags=["location"])
+api_router.include_router(engagement.router, prefix="/engagement", tags=["engagement"])
+api_router.include_router(careers.router, prefix="/careers", tags=["careers"])
+api_router.include_router(admin_hr.router, prefix="/admin/hr", tags=["Admin HR"])
+
+# Category-specific vendor modules (Real Estate, ...)
+api_router.include_router(categories_router)
+
+# Freelancer Portal & Website APIs
+api_router.include_router(freelance_router)
